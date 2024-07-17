@@ -1,31 +1,30 @@
-import 'package:atividade/classes/login_details.dart';
 import 'package:flutter/material.dart';
+import 'package:atividade/classes/login_details.dart';
 
-class LoginTextField extends StatefulWidget {
-  final TextEditingController _controller;
+class LoginTextField extends StatelessWidget {
+  final TextEditingController controller;
   final TiposLogin tipoLogin;
 
-  const LoginTextField(
-      {super.key, required controller, this.tipoLogin = TiposLogin.email})
-      : _controller = controller;
-
-  @override
-  State<LoginTextField> createState() => _LoginTextFieldState();
-}
-
-class _LoginTextFieldState extends State<LoginTextField> {
-  var mapTiposLogin = LoginDetails.loginDetails();
+  const LoginTextField({
+    Key? key,
+    required this.controller,
+    required this.tipoLogin,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final details = LoginDetails.loginDetails()[tipoLogin]!;
     return TextField(
-      controller: widget._controller,
+      controller: controller,
       decoration: InputDecoration(
-        label: Text(mapTiposLogin[widget.tipoLogin]!.label),
-        hintText: mapTiposLogin[widget.tipoLogin]!.hintText,
-        prefixIcon: mapTiposLogin[widget.tipoLogin]!.prefixIcon,
+        labelText: details.label,
+        hintText: details.hintText,
+        prefixIcon: details.prefixIcon,
         border: const OutlineInputBorder(),
       ),
+      keyboardType: details.keyboardType,
+      maxLength: details.maxLength > 0 ? details.maxLength : null,
+      inputFormatters: details.inputFormatters,
     );
   }
 }

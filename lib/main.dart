@@ -33,8 +33,8 @@ class Aula08 extends StatefulWidget {
 }
 
 class _Aula08State extends State<Aula08> {
-  late final _loginController;
-  late final _senhaCotroller;
+  late final TextEditingController _loginController;
+  late final TextEditingController _senhaController;
   var _tipoCampoLogin = TiposLogin.email;
   var _esconderSenha = true;
   var _tipoLogin = [true, false, false];
@@ -51,17 +51,72 @@ class _Aula08State extends State<Aula08> {
   @override
   void initState() {
     _loginController = TextEditingController();
-    _senhaCotroller = TextEditingController();
-
+    _senhaController = TextEditingController();
     super.initState();
   }
 
   @override
   void dispose() {
     _loginController.dispose();
-    _senhaCotroller.dispose();
-
+    _senhaController.dispose();
     super.dispose();
+  }
+
+  void _showErrorDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Erro'),
+        content: Text(message),
+        actions: <Widget>[
+          TextButton(
+            child: const Text('OK'),
+            onPressed: () {
+              Navigator.of(ctx).pop();
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  bool _validateFields() {
+    String login = _loginController.text;
+    String senha = _senhaController.text;
+
+    if (login.isEmpty || senha.isEmpty) {
+      _showErrorDialog('Todos os campos são obrigatórios.');
+      return false;
+    }
+
+    switch (_tipoCampoLogin) {
+      case TiposLogin.email:
+        if (!login.contains('@')) {
+          _showErrorDialog('E-mail deve conter um "@"');
+          return false;
+        }
+        break;
+      case TiposLogin.cpf:
+        if (login.length != 11 || int.tryParse(login) == null) {
+          _showErrorDialog('CPF deve conter 11 dígitos.');
+          return false;
+        }
+        break;
+      case TiposLogin.telefone:
+        if (login.length != 11 || int.tryParse(login) == null) {
+          _showErrorDialog('Telefone deve conter 11 dígitos numéricos.');
+          return false;
+        }
+        break;
+    }
+    return true;
+  }
+
+  void _login() {
+    if (_validateFields()) {
+      // Processar login
+      print('Login bem-sucedido');
+    }
   }
 
   @override
@@ -77,20 +132,45 @@ class _Aula08State extends State<Aula08> {
                 width: 150,
                 image: AssetImage('assets/images/logo.png'),
               ),
-              const SizedBox(
-                height: 48,
+              const SizedBox(height: 48),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text('Logar com'),
+                  const SizedBox(width: 8),
+                  ToggleButtons(
+                    isSelected: _tipoLogin,
+                    onPressed: (int idx) {
+                      mudarTipoLogin(idx);
+                    },
+                    fillColor: Colors.blue.withOpacity(0.2),
+                    selectedColor: Colors.blue,
+                    borderRadius: BorderRadius.circular(10),
+                    children: const <Widget>[
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        child: Text('Email'),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        child: Text('CPF'),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        child: Text('Telefone'),
+                      ),
+                    ],
+                  ),
+                ],
               ),
-              // TipoLogin(tipoLogin: _tipoLogin, onPressed: mudarTipoLogin),
               const SizedBox(height: 48),
               LoginTextField(
                 controller: _loginController,
                 tipoLogin: _tipoCampoLogin,
               ),
-              const SizedBox(
-                height: 48,
-              ),
+              const SizedBox(height: 48),
               TextField(
-                controller: _senhaCotroller,
+                controller: _senhaController,
                 obscureText: _esconderSenha,
                 decoration: InputDecoration(
                   prefixIcon: const Icon(Icons.lock),
@@ -107,10 +187,20 @@ class _Aula08State extends State<Aula08> {
                   border: const OutlineInputBorder(),
                 ),
               ),
-              ElevatedButton(
-                onPressed: () {},
-                child: const Text('Login'),
-                style: 
+              const SizedBox(height: 24),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: _login,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 30, vertical: 15),
+                    textStyle: const TextStyle(fontSize: 18),
+                  ),
+                  child: const Text('Login'),
+                ),
               ),
             ],
           ),
