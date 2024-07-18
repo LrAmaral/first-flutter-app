@@ -1,7 +1,10 @@
+import 'package:atividade/widgets/Dashboard_section.dart';
+import 'package:atividade/widgets/Disciplina_section.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class WelcomeScreen extends StatefulWidget {
-  const WelcomeScreen({super.key});
+  const WelcomeScreen({Key? key}) : super(key: key);
 
   @override
   State<WelcomeScreen> createState() => _WelcomeScreenState();
@@ -11,7 +14,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   int _selectedIndex = 0;
 
   static const List<Widget> _widgetOptions = <Widget>[
-    DashboardSection(),
+    DashboardSection(usuario: 'Lucas'),
     DisciplinasSection(),
     Text(
       'Você saiu com sucesso!',
@@ -21,9 +24,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
   void _onItemTapped(int index) {
     if (index == 2) {
-      // Updated the index check to 2 for the logout
-      Navigator.of(context)
-          .pushNamedAndRemoveUntil('/logout', (route) => false);
+      context.go('/logout');
     } else {
       setState(() {
         _selectedIndex = index;
@@ -60,69 +61,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.white,
         onTap: _onItemTapped,
-      ),
-    );
-  }
-}
-
-class DashboardSection extends StatelessWidget {
-  const DashboardSection({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Icon(Icons.dashboard, size: 100),
-        Text(
-          'Bem-vindo ao Dashboard!',
-          style: TextStyle(fontSize: 24),
-        ),
-      ],
-    );
-  }
-}
-
-class DisciplinasSection extends StatelessWidget {
-  const DisciplinasSection({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Icon(Icons.menu_open, size: 100),
-        Text(
-          'Aqui estão suas disciplinas.',
-          style: TextStyle(fontSize: 24),
-        ),
-      ],
-    );
-  }
-}
-
-class LogoutScreen extends StatelessWidget {
-  const LogoutScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: AlertDialog(
-          title: const Text('Logout'),
-          content: const Text('Você saiu com sucesso!'),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('OK'),
-              onPressed: () {
-                Navigator.of(context).pushNamedAndRemoveUntil(
-                  '/',
-                  (Route<dynamic> route) => false,
-                );
-              },
-            ),
-          ],
-        ),
       ),
     );
   }

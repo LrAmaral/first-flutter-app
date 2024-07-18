@@ -2,35 +2,45 @@ import 'package:atividade/classes/login_details.dart';
 import 'package:atividade/widgets/login_text_field.dart';
 import 'package:atividade/widgets/welcome.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
+final router = GoRouter(
+  initialLocation: '/',
+  routes: [
+    GoRoute(
+      path: '/',
+      builder: (context, state) => const Aula08(title: 'Atividade'),
+    ),
+    GoRoute(
+      path: '/welcome',
+      builder: (context, state) => const WelcomeScreen(),
+    ),
+  ],
+);
+
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Minha Aplicação',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
-        useMaterial3: true,
+        primarySwatch: Colors.blue,
       ),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const Aula08(title: 'Flutter Demo Home Page'),
-        '/welcome': (context) => const WelcomeScreen(),
-        '/logout': (context) => const LogoutScreen(),
-      },
+      home: const Scaffold(
+        body: Aula08(title: 'Atividade'),
+      ),
     );
   }
 }
 
 class Aula08 extends StatefulWidget {
-  const Aula08({super.key, required this.title});
+  const Aula08({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
@@ -44,14 +54,6 @@ class _Aula08State extends State<Aula08> {
   var _tipoCampoLogin = TiposLogin.email;
   var _esconderSenha = true;
   var _tipoLogin = [true, false, false];
-
-  void mudarTipoLogin(int idx) {
-    setState(() {
-      _loginController.text = '';
-      _tipoCampoLogin = TiposLogin.values[idx];
-      _tipoLogin = List<bool>.generate(3, (index) => index == idx);
-    });
-  }
 
   @override
   void initState() {
@@ -117,11 +119,18 @@ class _Aula08State extends State<Aula08> {
     return true;
   }
 
-  void _login() {
+  void _login(BuildContext context) {
     if (_validateFields()) {
-      Navigator.pushNamed(context, '/welcome',
-          arguments: {'usuario': _loginController.text});
+      context.go('/welcome', extra: {'usuario': 'Lucas'});
     }
+  }
+
+  void mudarTipoLogin(int idx) {
+    setState(() {
+      _loginController.text = '';
+      _tipoCampoLogin = TiposLogin.values[idx];
+      _tipoLogin = List<bool>.generate(3, (index) => index == idx);
+    });
   }
 
   @override
@@ -206,7 +215,7 @@ class _Aula08State extends State<Aula08> {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: _login,
+                  onPressed: () => _login(context),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
                     foregroundColor: Colors.white,
