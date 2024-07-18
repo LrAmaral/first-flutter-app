@@ -21,6 +21,15 @@ class LoginTextField extends StatelessWidget {
         hintText: details.hintText,
         prefixIcon: details.prefixIcon,
         border: const OutlineInputBorder(),
+        focusedBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.blue),
+        ),
+        enabledBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.blue),
+        ),
+        floatingLabelStyle: TextStyle(
+          color: Colors.blue,
+        ),
       ),
       keyboardType: details.keyboardType,
       maxLength: details.maxLength > 0 ? details.maxLength : null,

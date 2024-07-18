@@ -1,7 +1,7 @@
 import 'package:atividade/classes/login_details.dart';
 import 'package:atividade/widgets/login_text_field.dart';
+import 'package:atividade/widgets/welcome.dart';
 import 'package:flutter/material.dart';
-import 'package:collection/collection.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,13 +13,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
         useMaterial3: true,
       ),
       home: const Aula08(title: 'Flutter Demo Home Page'),
-    );
+    );  
   }
 }
 
@@ -43,8 +44,7 @@ class _Aula08State extends State<Aula08> {
     setState(() {
       _loginController.text = '';
       _tipoCampoLogin = TiposLogin.values[idx];
-      _tipoLogin =
-          _tipoLogin.mapIndexed((index, element) => index == idx).toList();
+      _tipoLogin = List<bool>.generate(3, (index) => index == idx);
     });
   }
 
@@ -114,8 +114,11 @@ class _Aula08State extends State<Aula08> {
 
   void _login() {
     if (_validateFields()) {
-      // Processar login
-      print('Login bem-sucedido');
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => const WelcomeScreen(),
+        ),
+      );
     }
   }
 
@@ -173,6 +176,7 @@ class _Aula08State extends State<Aula08> {
                 controller: _senhaController,
                 obscureText: _esconderSenha,
                 decoration: InputDecoration(
+                  labelText: 'Senha',
                   prefixIcon: const Icon(Icons.lock),
                   suffixIcon: IconButton(
                     onPressed: () {
@@ -185,6 +189,15 @@ class _Aula08State extends State<Aula08> {
                         : const Icon(Icons.visibility),
                   ),
                   border: const OutlineInputBorder(),
+                  focusedBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blue),
+                  ),
+                  enabledBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey),
+                  ),
+                  floatingLabelStyle: const TextStyle(
+                    color: Colors.blue,
+                  ),
                 ),
               ),
               const SizedBox(height: 24),
