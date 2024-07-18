@@ -25,7 +25,7 @@ class LoginTextField extends StatelessWidget {
           borderSide: BorderSide(color: Colors.blue),
         ),
         enabledBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.blue),
+          borderSide: BorderSide(color: Colors.grey),
         ),
         floatingLabelStyle: const TextStyle(
           color: Colors.blue,

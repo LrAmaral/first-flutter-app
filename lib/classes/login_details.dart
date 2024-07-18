@@ -25,12 +25,18 @@ class LoginDetails {
       TiposLogin.email: LoginDetails(
         label: "E-mail",
         hintText: "usuario@example.com",
-        prefixIcon: const Icon(Icons.mail),
+        prefixIcon: const Icon(
+          Icons.mail,
+          color: Colors.blue,
+        ),
       ),
       TiposLogin.cpf: LoginDetails(
         label: "CPF",
         hintText: "111.111.111-11",
-        prefixIcon: const Icon(Icons.perm_identity),
+        prefixIcon: const Icon(
+          Icons.perm_identity,
+          color: Colors.blue,
+        ),
         keyboardType: TextInputType.number,
         maxLength: 11,
         inputFormatters: [
@@ -41,7 +47,10 @@ class LoginDetails {
       TiposLogin.telefone: LoginDetails(
         label: "Telefone",
         hintText: "(11) 11111-1111",
-        prefixIcon: const Icon(Icons.phone),
+        prefixIcon: const Icon(
+          Icons.phone,
+          color: Colors.blue,
+        ),
         keyboardType: TextInputType.phone,
         maxLength: 11,
         inputFormatters: [

@@ -95,6 +95,11 @@ class _Aula08State extends State<Aula08> {
       return false;
     }
 
+    if (senha != 'admin') {
+      _showErrorDialog('Senha incorreta.');
+      return false;
+    }
+
     switch (_tipoCampoLogin) {
       case TiposLogin.email:
         if (!login.contains('@')) {
@@ -181,13 +186,16 @@ class _Aula08State extends State<Aula08> {
                 controller: _loginController,
                 tipoLogin: _tipoCampoLogin,
               ),
-              const SizedBox(height: 48),
+              const SizedBox(height: 24),
               TextField(
                 controller: _senhaController,
                 obscureText: _esconderSenha,
                 decoration: InputDecoration(
                   labelText: 'Senha',
-                  prefixIcon: const Icon(Icons.lock),
+                  prefixIcon: const Icon(
+                    Icons.lock,
+                    color: Colors.blue,
+                  ),
                   suffixIcon: IconButton(
                     onPressed: () {
                       setState(() {
@@ -195,8 +203,14 @@ class _Aula08State extends State<Aula08> {
                       });
                     },
                     icon: _esconderSenha
-                        ? const Icon(Icons.visibility_off)
-                        : const Icon(Icons.visibility),
+                        ? const Icon(
+                            Icons.visibility_off,
+                            color: Colors.blue,
+                          )
+                        : const Icon(
+                            Icons.visibility,
+                            color: Colors.blue,
+                          ),
                   ),
                   border: const OutlineInputBorder(),
                   focusedBorder: const OutlineInputBorder(

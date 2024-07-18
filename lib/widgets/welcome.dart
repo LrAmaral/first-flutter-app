@@ -13,10 +13,10 @@ class WelcomeScreen extends StatefulWidget {
 class _WelcomeScreenState extends State<WelcomeScreen> {
   int _selectedIndex = 0;
 
-  static const List<Widget> _widgetOptions = <Widget>[
+  static final List<Widget> _widgetOptions = <Widget>[
     DashboardSection(usuario: 'Lucas'),
-    DisciplinasSection(),
-    Text(
+    const DisciplinasSection(),
+    const Text(
       'Você saiu com sucesso!',
       style: TextStyle(fontSize: 24),
     ),
@@ -24,7 +24,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
   void _onItemTapped(int index) {
     if (index == 2) {
-      context.go('/logout');
+      _showLogoutConfirmationDialog();
     } else {
       setState(() {
         _selectedIndex = index;
@@ -32,18 +32,37 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     }
   }
 
+  void _showLogoutConfirmationDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Confirmação de Logout'),
+          content: const Text('Você tem certeza que deseja sair?'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Cancelar'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('Sair'),
+              onPressed: () {
+                context.go('/');
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Bem-vindo'),
         backgroundColor: Colors.green,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            context.go('/');
-          },
-        ),
       ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
