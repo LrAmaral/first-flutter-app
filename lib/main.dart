@@ -1,8 +1,8 @@
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:atividade/classes/login_details.dart';
 import 'package:atividade/widgets/login_text_field.dart';
 import 'package:atividade/widgets/welcome.dart';
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,24 +23,23 @@ final router = GoRouter(
 );
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
       title: 'Minha Aplicação',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const Scaffold(
-        body: Aula08(title: 'Atividade'),
-      ),
+      routerConfig: router,
     );
   }
 }
 
 class Aula08 extends StatefulWidget {
-  const Aula08({Key? key, required this.title}) : super(key: key);
+  const Aula08({super.key, required this.title});
 
   final String title;
 
@@ -151,7 +150,7 @@ class _Aula08State extends State<Aula08> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text('Logar com'),
-                  const SizedBox(width: 8),
+                  const SizedBox(width: 4),
                   ToggleButtons(
                     isSelected: _tipoLogin,
                     onPressed: (int idx) {

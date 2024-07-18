@@ -6,10 +6,10 @@ class LoginTextField extends StatelessWidget {
   final TiposLogin tipoLogin;
 
   const LoginTextField({
-    Key? key,
+    super.key,
     required this.controller,
     required this.tipoLogin,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
