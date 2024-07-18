@@ -19,8 +19,13 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
         useMaterial3: true,
       ),
-      home: const Aula08(title: 'Flutter Demo Home Page'),
-    );  
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const Aula08(title: 'Flutter Demo Home Page'),
+        '/welcome': (context) => const WelcomeScreen(),
+        '/logout': (context) => const LogoutScreen(),
+      },
+    );
   }
 }
 
@@ -114,11 +119,7 @@ class _Aula08State extends State<Aula08> {
 
   void _login() {
     if (_validateFields()) {
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => const WelcomeScreen(),
-        ),
-      );
+      Navigator.of(context).pushNamed('/welcome');
     }
   }
 

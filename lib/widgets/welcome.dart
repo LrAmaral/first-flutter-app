@@ -12,10 +12,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   int _selectedIndex = 0;
 
   static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Disciplinas',
-      style: TextStyle(fontSize: 24),
-    ),
+    Icon(Icons.dashboard),
     Text(
       'Você saiu com sucesso!',
       style: TextStyle(fontSize: 24),
@@ -24,12 +21,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
   void _onItemTapped(int index) {
     if (index == 1) {
-      Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(
-          builder: (context) => const LogoutScreen(),
-        ),
-        (Route<dynamic> route) => false,
-      );
+      Navigator.of(context)
+          .pushNamedAndRemoveUntil('/logout', (route) => false);
     } else {
       setState(() {
         _selectedIndex = index;
@@ -41,7 +34,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Bem-vindo'),
+        title: const Text('Voltar'),
+        backgroundColor: Colors.green,
       ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
@@ -84,10 +78,8 @@ class LogoutScreen extends StatelessWidget {
             TextButton(
               child: const Text('OK'),
               onPressed: () {
-                Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(
-                    builder: (context) => const MyApp(),
-                  ),
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                  '/',
                   (Route<dynamic> route) => false,
                 );
               },
