@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:atividade/classes/login_details.dart';
+import 'package:atividade/class/login_details.dart';
 import 'package:atividade/widgets/login_text_field.dart';
 import 'package:atividade/widgets/welcome.dart';
 

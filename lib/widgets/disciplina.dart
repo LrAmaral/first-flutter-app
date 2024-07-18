@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:atividade/classes/disciplina.dart'; 
+import 'package:atividade/class/disciplina.dart'; 
 
 class DisciplinasSection extends StatelessWidget {
   const DisciplinasSection({super.key});  
