@@ -1,4 +1,3 @@
-import 'package:atividade/main.dart';
 import 'package:flutter/material.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -12,7 +11,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   int _selectedIndex = 0;
 
   static const List<Widget> _widgetOptions = <Widget>[
-    Icon(Icons.dashboard),
+    DashboardSection(),
+    DisciplinasSection(),
     Text(
       'Você saiu com sucesso!',
       style: TextStyle(fontSize: 24),
@@ -20,7 +20,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   ];
 
   void _onItemTapped(int index) {
-    if (index == 1) {
+    if (index == 2) {
+      // Updated the index check to 2 for the logout
       Navigator.of(context)
           .pushNamedAndRemoveUntil('/logout', (route) => false);
     } else {
@@ -60,6 +61,42 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         selectedItemColor: Colors.white,
         onTap: _onItemTapped,
       ),
+    );
+  }
+}
+
+class DashboardSection extends StatelessWidget {
+  const DashboardSection({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(Icons.dashboard, size: 100),
+        Text(
+          'Bem-vindo ao Dashboard!',
+          style: TextStyle(fontSize: 24),
+        ),
+      ],
+    );
+  }
+}
+
+class DisciplinasSection extends StatelessWidget {
+  const DisciplinasSection({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(Icons.menu_open, size: 100),
+        Text(
+          'Aqui estão suas disciplinas.',
+          style: TextStyle(fontSize: 24),
+        ),
+      ],
     );
   }
 }

@@ -119,7 +119,8 @@ class _Aula08State extends State<Aula08> {
 
   void _login() {
     if (_validateFields()) {
-      Navigator.of(context).pushNamed('/welcome');
+      Navigator.pushNamed(context, '/welcome',
+          arguments: {'usuario': _loginController.text});
     }
   }
 
