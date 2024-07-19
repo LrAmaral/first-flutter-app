@@ -38,7 +38,7 @@ class Disciplina {
           codigo: 'PDMD3',
           nome: 'Programação para Dispositivos Móveis',
           professor: 'Antonio Dourado'),
-      // Adicione mais disciplinas conforme necessário
+      
     ];
   }
 }
