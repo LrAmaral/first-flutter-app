@@ -247,6 +247,9 @@ class _Aula08State extends State<Aula08> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 30, vertical: 15),
                     textStyle: const TextStyle(fontSize: 18),
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.zero,
+                    ),
                   ),
                   child: const Text('Login'),
                 ),
