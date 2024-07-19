@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class WelcomeScreen extends StatefulWidget {
-  const WelcomeScreen({super.key});
+  final String usuario;
+
+  const WelcomeScreen({super.key, required this.usuario});
 
   @override
   State<WelcomeScreen> createState() => _WelcomeScreenState();
@@ -13,14 +15,14 @@ class WelcomeScreen extends StatefulWidget {
 class _WelcomeScreenState extends State<WelcomeScreen> {
   int _selectedIndex = 0;
 
-  static final List<Widget> _widgetOptions = <Widget>[
-    DashboardSection(usuario: 'Lucas'),
-    const DisciplinasSection(),
-    const Text(
-      'Você saiu com sucesso!',
-      style: TextStyle(fontSize: 24),
-    ),
-  ];
+  static List<Widget> _widgetOptions(String usuario) => <Widget>[
+        DashboardSection(usuario: usuario),
+        const DisciplinasSection(),
+        const Text(
+          'Você saiu com sucesso!',
+          style: TextStyle(fontSize: 24),
+        ),
+      ];
 
   void _onItemTapped(int index) {
     if (index == 2) {
@@ -65,13 +67,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         backgroundColor: Colors.green,
       ),
       body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+        child: _widgetOptions(widget.usuario).elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.green,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Icon(Icons.home_outlined),
             label: 'Dashboard',
           ),
           BottomNavigationBarItem(

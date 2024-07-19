@@ -37,7 +37,7 @@ class DashboardSection extends StatelessWidget {
         const SizedBox(height: 20),
         const Text(
           'Sugestão de disciplina para estudar:',
-          style: TextStyle(fontSize: 18),
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
         ),
         const SizedBox(height: 10),
         Text(

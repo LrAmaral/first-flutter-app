@@ -16,8 +16,11 @@ final router = GoRouter(
       builder: (context, state) => const Aula08(title: 'Atividade'),
     ),
     GoRoute(
-      path: '/welcome',
-      builder: (context, state) => const WelcomeScreen(),
+      path: '/welcome/:usuario',
+      builder: (context, state) {
+        final usuario = state.pathParameters['usuario'] ?? 'Usuário';
+        return WelcomeScreen(usuario: usuario);
+      },
     ),
   ],
 );
@@ -87,8 +90,8 @@ class _Aula08State extends State<Aula08> {
   }
 
   bool _validateFields() {
-    String login = _loginController.text;
-    String senha = _senhaController.text;
+    String login = _loginController.text.trim();
+    String senha = _senhaController.text.trim();
 
     if (login.isEmpty || senha.isEmpty) {
       _showErrorDialog('Todos os campos são obrigatórios.');
@@ -105,27 +108,36 @@ class _Aula08State extends State<Aula08> {
         if (!login.contains('@')) {
           _showErrorDialog('E-mail deve conter um "@"');
           return false;
+        } else if (login.split('@').length != 2) {
+          _showErrorDialog('E-mail deve conter exatamente um "@"');
+          return false;
         }
         break;
       case TiposLogin.cpf:
         if (login.length != 11 || int.tryParse(login) == null) {
-          _showErrorDialog('CPF deve conter 11 dígitos.');
+          _showErrorDialog('CPF deve conter 11 dígitos numéricos.');
           return false;
         }
         break;
       case TiposLogin.telefone:
-        if (login.length != 11 || int.tryParse(login) == null) {
-          _showErrorDialog('Telefone deve conter 11 dígitos numéricos.');
+        if (login.length != 10 && login.length != 11) {
+          _showErrorDialog('Telefone deve conter 10 ou 11 dígitos numéricos.');
+          return false;
+        }
+
+        if (int.tryParse(login) == null) {
+          _showErrorDialog('Telefone deve conter apenas dígitos numéricos.');
           return false;
         }
         break;
     }
+
     return true;
   }
 
   void _login(BuildContext context) {
     if (_validateFields()) {
-      context.go('/welcome', extra: {'usuario': 'Lucas'});
+      context.go('/welcome/Lucas');
     }
   }
 
