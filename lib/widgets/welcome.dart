@@ -1,5 +1,5 @@
 import 'package:atividade/widgets/dashboard.dart';
-import 'package:atividade/widgets/disciplina.dart';
+import 'package:atividade/widgets/disciplina_section.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
