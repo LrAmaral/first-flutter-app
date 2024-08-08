@@ -17,13 +17,13 @@ Este é um projeto básico em Flutter que demonstra uma tela de login com alguma
 1. **Clone o Repositório**
 
    ```bash
-   git clone https://github.com/LrAmaral/flutter-activity.git
+   git clone https://github.com/LrAmaral/first-flutter-app.git
    ```
 
 2. **Navegue para o Diretório do Projeto**
 
    ```bash
-   cd flutter-activity
+   cd first-flutter-app
    ```
 
 3. **Instale as Dependências**
